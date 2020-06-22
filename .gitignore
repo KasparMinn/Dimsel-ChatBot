@@ -1,0 +1,5 @@
+/build/
+/gradle/
+/.idea/
+/.gradle/
+/src/main/java/Token.java
