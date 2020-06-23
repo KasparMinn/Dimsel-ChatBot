@@ -17,13 +17,17 @@ public class CatPic {
         content = content.toLowerCase();
 
         OkHttpClient client = new OkHttpClient().newBuilder()
+
                 .build();
+
         Request request = new Request.Builder()
+
                 .url("https://api.thecatapi.com/v1/images/search?format=json")
                 .method("GET", null)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("x-api-key", "17d94b92-754f-46eb-99a0-65be65b5d18f")
                 .build();
+
         Response response = client.newCall(request).execute();
 
         String meowPicture = response.toString();

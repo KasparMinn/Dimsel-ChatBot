@@ -7,6 +7,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class Cherish {
     public void cherishMethod(MessageReceivedEvent event) {
 
+        // This is a silly command to cherish a friend with some wholesome emojis!
+
         String list = event.getGuild().getMembers().toString();
 
         Message message = event.getMessage();

@@ -36,24 +36,22 @@ public class Main extends ListenerAdapter {
                 .setGame(Game.watching("cats be cute"))
                 .build();
 
-        // 3 = watching
-
         StatusChanges.changeLoop(api);
+
     }
 
     public static class MyListener extends ListenerAdapter {
 
         // This prints out all the messages that Dimsel sees:
-
         @SubscribeEvent
         public void ohHeyAMessage(MessageReceivedEvent event) {
+
             System.out.println(
 
                     "Channel: " +
                             event.getChannel() +
                             " By: " +
                             event.getAuthor());
-
 
             System.out.println(
 
@@ -62,16 +60,15 @@ public class Main extends ListenerAdapter {
 
             System.out.println("\n");
 
-
         }
-
 
         @SubscribeEvent
         public static void msgReceived(MessageReceivedEvent event) throws IOException, InterruptedException, URISyntaxException {
 
-            // These lines here makes the bot not respond to other bots:
+            // These lines here make the bot not respond to other bots:
             if (event.getAuthor().isBot()) { return; }
 
+            // TODO: Combine the context batches.
             QuizContext contextQ = quizGame.getContext(event);
             if (contextQ.state != QuizState.DEFAULT) {
                 quizGame.quizMethod(event);
@@ -83,7 +80,6 @@ public class Main extends ListenerAdapter {
                 return; }
 
             RPGContext contextR = roleGame.getContext(event);
-
             if (contextR.state != RPGstate.DEFAULT) {
                 roleGame.rpgMethod(event);
                 return; }
@@ -114,7 +110,7 @@ public class Main extends ListenerAdapter {
                             "**!roll** - Roll a simple 20-sided die. Type !roll XdY to roll X amount of Y-sided dice. \n" +
                             "**!cat** - Fetches a cat picture from The Cat API. \n" +
                             "**!fact** - Fetches a cat fact from The Cat API. \n" +
-                            "**!elfname** - Generates a really bad elf name. \n" +
+                            "**!elfname** - Generates a (really bad) elf name. \n" +
                             "**!quiz start** - Starts a 10-question quiz about Night Elven lore. \n" +
                             "**!hangman start** - Starts a game of hangman with user input. \n" +
                             "**!appreciate NAME** - Appreciate someone by replacing NAME with their name! \n" +
@@ -184,6 +180,7 @@ public class Main extends ListenerAdapter {
                     Cherish uCherish = new Cherish();
                     uCherish.cherishMethod(event);
 
+                // WIP:
                 } else if (content.startsWith("?message")) {
 
                     MessageHistoryCommands commands = new MessageHistoryCommands();
