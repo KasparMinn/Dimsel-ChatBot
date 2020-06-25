@@ -33,7 +33,7 @@ public class Main extends ListenerAdapter {
                 .setEventManager(new AnnotatedEventManager())
                 .addEventListener(new MyListener())
                 .setStatus(OnlineStatus.ONLINE)
-                .setGame(Game.watching("cats be cute"))
+                .setGame(Game.watching("you read this..."))
                 .build();
 
         StatusChanges.changeLoop(api);

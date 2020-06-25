@@ -1,14 +1,11 @@
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.managers.Presence;
 
-import javax.security.auth.login.LoginException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class StatusChanges {
-    public static void changeLoop(JDA api) throws InterruptedException, LoginException {
+    public static void changeLoop(JDA api) throws InterruptedException {
 
         // 16 lines
 
@@ -55,7 +52,7 @@ public class StatusChanges {
                 "gangsta rap w/ Nel" };
 
         Random rPick = new Random();
-        int P = rPick.nextInt(watchingLines.length);
+        int P;
 
         // Redundant boolean for the moment, but I might want to do something here later with user commands...
 
