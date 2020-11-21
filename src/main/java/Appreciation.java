@@ -1,6 +1,4 @@
-import net.dv8tion.jda.core.entities.MessageChannel;
-
-import javax.swing.table.TableColumn;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;

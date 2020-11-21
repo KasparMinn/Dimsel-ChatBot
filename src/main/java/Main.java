@@ -1,42 +1,47 @@
 import Hangman.HangManGame;
 import Hangman.HangmanContext;
 import Hangman.HangmanState;
-import Roleplaying.RPG;
-import Roleplaying.RPGContext;
-import Roleplaying.RPGstate;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import net.dv8tion.jda.core.hooks.SubscribeEvent;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.AnnotatedEventManager;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.hooks.SubscribeEvent;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static net.dv8tion.jda.api.requests.GatewayIntent.GUILD_MEMBERS;
+
 public class Main extends ListenerAdapter {
 
     static Quiz quizGame = new Quiz();
     static HangManGame hangGame = new HangManGame();
-    static RPG roleGame = new RPG();
 
     public static void main(String[] args) throws LoginException, InterruptedException {
 
+
+//        JDA api = new JDABuilder(token.getToken())
+//                .setEventManager(new AnnotatedEventManager())
+//                .addEventListener(new MyListener())
+//                .setStatus(OnlineStatus.ONLINE)
+//                .setGame(watching("you read this..."))
+//                .build();
         Token token = new Token();
 
-        JDA api = new JDABuilder(token.getToken())
-                .setEventManager(new AnnotatedEventManager())
-                .addEventListener(new MyListener())
-                .setStatus(OnlineStatus.ONLINE)
-                .setGame(Game.watching("you read this..."))
-                .build();
+        JDABuilder builder = JDABuilder.createDefault(token.getToken());
+        // Enable the bulk delete event
+        builder.setEventManager(new AnnotatedEventManager());
+        builder.addEventListeners(new MyListener());
+        builder.setActivity(Activity.watching("TV"));
 
-        StatusChanges.changeLoop(api);
+        builder.build();
+        StatusChanges.changeLoop((JDA) builder);
 
     }
 
@@ -79,16 +84,9 @@ public class Main extends ListenerAdapter {
                 hangGame.hangmanMethod(event);
                 return; }
 
-            RPGContext contextR = roleGame.getContext(event);
-            if (contextR.state != RPGstate.DEFAULT) {
-                roleGame.rpgMethod(event);
-                return; }
-
-
             // Identifies message to display it in the 'content' string:
             Message message = event.getMessage();
             String content = message.getContentDisplay();
-
 
             // This puts the incoming message to lowercase, so that content.contains could find it:
             content = content.toLowerCase();
@@ -165,11 +163,6 @@ public class Main extends ListenerAdapter {
                     contextQ.reset();
                     quizGame.quizMethod(event);
 
-                } else if (content.startsWith("!rpg")) {
-
-                    contextR.reset();
-                    roleGame.rpgMethod(event);
-
                 } else if (content.startsWith("!daressa")) {
 
                     Appreciation dApp = new Appreciation();
@@ -185,6 +178,10 @@ public class Main extends ListenerAdapter {
 
                     MessageHistoryCommands commands = new MessageHistoryCommands();
                     commands.messageMethod(event);
+
+                } else if (content.startsWith("!debug")) {
+
+                    System.out.println();
 
                 } else {
 

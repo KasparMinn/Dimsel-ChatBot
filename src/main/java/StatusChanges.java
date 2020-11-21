@@ -1,11 +1,11 @@
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class StatusChanges {
-    public static void changeLoop(JDA api) throws InterruptedException {
+    public static void changeLoop(JDA jda) throws InterruptedException {
 
         // 16 lines
 
@@ -60,11 +60,11 @@ public class StatusChanges {
         while (rotationON = true) {
 
             P = rPick.nextInt(watchingLines.length);
-            api.getPresence().setGame(Game.watching(watchingLines[P]));
+            jda.getPresence().setActivity(Activity.watching(watchingLines[P]));
             TimeUnit.SECONDS.sleep(30);
 
             P = rPick.nextInt(watchingLines.length);
-            api.getPresence().setGame(Game.listening(listeningLines[P]));
+            jda.getPresence().setActivity(Activity.listening(listeningLines[P]));
             TimeUnit.SECONDS.sleep(30);
 
         }

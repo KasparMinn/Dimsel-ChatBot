@@ -1,15 +1,19 @@
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static net.dv8tion.jda.api.requests.GatewayIntent.GUILD_MEMBERS;
 
 public class Cherish {
     public void cherishMethod(MessageReceivedEvent event) {
 
         // This is a silly command to cherish a friend with some wholesome emojis!
-
-        String list = event.getGuild().getMembers().toString();
 
         Message message = event.getMessage();
         String content = message.getContentDisplay();
@@ -26,7 +30,16 @@ public class Cherish {
         String firstRandom = firstThing[(int)(Math.random() * firstThing.length)];
         String secondRandom = secondThing[(int)(Math.random() * secondThing.length)];
 
-        if (list.toLowerCase().contains(name1)) {
+        String[] users =  {"Ash", "Ashandri", "Dalemoor", "Daressa", "Mogwai", "Nari",
+                          "Thedris", "Teddy", "Yss", "Ys", "Ysendris", "Ia", "Ialluen", "Kale", "Markus", "Mivae",
+                          "Mivved", "Nytheria", "Nyth", "Shy", "Shyere", "Dii", "Vilma", "Meky", "Mek-Mek",
+                          "Vilmazar", "Nel", "Nelereth", "Saley", "Saleysea", "Sally",
+                          "Wildbough"};
+
+        List<String> list = Arrays.asList(users);
+
+
+        if (list.contains(name2)) {
             channel.sendMessage("I appreciate " + name2 + " a lot! They are a " + firstRandom + " and " + secondRandom + "!" ).queue();
         } else {
             channel.sendMessage("The user " + name2 + " is currently not in the server, and therefore is unable to be appreciated by me!").queue();

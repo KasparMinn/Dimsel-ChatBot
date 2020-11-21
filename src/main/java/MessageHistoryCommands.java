@@ -1,6 +1,6 @@
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.io.BufferedReader;
@@ -45,16 +45,15 @@ public class MessageHistoryCommands {
 
         channel.sendMessage("The current statistics are from files converted at: 27/05/2020").queue();
         channel.sendMessage("At present, my message history parsing capabilities are: \n "
-                                 + "```!message words total - counts all the words in both channels." +
-                                   "\n!message words WORD - counts instances of any word." +
-                                   "\n!message quoteme - fetches a random quote from the user.```").queue();
-        
+                + "```!message words total - counts all the words in both channels." +
+                "\n!message words WORD - counts instances of any word." +
+                "\n!message quoteme - fetches a random quote from the user.```").queue();
+
 
         if (content.startsWith("!message words total")) {
 
             while ((cattoG = buffCatGeneral.readLine()) != null &&
-                   (cattoR = buffCatRandom.readLine()) != null )
-            {
+                    (cattoR = buffCatRandom.readLine()) != null) {
 
                 String[] l1 = cattoG.split(" ");
                 String[] l2 = cattoR.split(" ");
@@ -68,14 +67,11 @@ public class MessageHistoryCommands {
 
         }
 
-        if (content.startsWith("!message quoteme")) {  
+        if (content.startsWith("!message quoteme")) {
 
-
+            buffCatGeneral.close();
+            buffCatRandom.close();
 
         }
-
-        buffCatGeneral.close();
-        buffCatRandom.close();
-
     }
 }

@@ -1,4 +1,4 @@
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class GenerateName {
     public void nameGen(MessageChannel channel) {
